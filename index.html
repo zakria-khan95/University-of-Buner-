@@ -1,86 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University of Buner</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f0f4f8;
-            text-align: center;
-        }
-        header {
-            background: #075b35;
-            color: white;
-            padding: 25px 10px;
-        }
-        nav {
-            background: #043d24;
-            padding: 15px;
-        }
-        nav a {
-            color: white;
-            margin: 10px;
-            text-decoration: none;
-        }
-        main {
-            padding: 25px 15px;
-        }
-        .card {
-            background: white;
-            margin: 15px auto;
-            padding: 20px;
-            max-width: 500px;
-            border-radius: 10px;
-        }
-        footer {
-            background: #075b35;
-            color: white;
-            padding: 15px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University of Buner - Attendance</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 20px;
+}
+header {
+  background: #075e3b;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.container {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 700px;
+  border-radius: 10px;
+}
+input, button {
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+input {
+  width: 100%;
+}
+button {
+  cursor: pointer;
+  background: #075e3b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>University of Buner</h1>
-        <p>Student Information Portal</p>
-    </header>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#departments">Departments</a>
-        <a href="#attendance">Attendance</a>
-        <a href="#rules">Semester Rules</a>
-    </nav>
+<header>
+<h1>University of Buner</h1>
+<h2>Daily Attendance System</h2>
+</header>
 
-    <main id="home">
-        <div class="card">
-            <h2>Welcome Students!</h2>
-            <p>Welcome to the University of Buner student information website.</p>
-        </div>
+<div class="container">
+<h3>Add Student</h3>
 
-        <div class="card" id="departments">
-            <h2>Departments</h2>
-            <p>BS Cyber Security</p>
-            <p>BS Computer Science</p>
-            <p>BS Artificial Intelligence</p>
-        </div>
+<input id="name" placeholder="Student Name">
+<input id="roll" placeholder="Roll Number">
 
-        <div class="card" id="attendance">
-            <h2>Attendance Information</h2>
-            <p>Attendance information will be added here.</p>
-        </div>
+<button onclick="addStudent()">Add Student</button>
 
-        <div class="card" id="rules">
-            <h2>Semester Rules</h2>
-            <p>Semester rules and student notices will be added here.</p>
-        </div>
-    </main>
+<h3>Mark Attendance</h3>
+<label>Select Date:</label>
+<input type="date" id="date">
 
-    <footer>
-        <p>Student Information Website</p>
-    </footer>
+<table>
+<thead>
+<tr>
+<th>Roll No.</th>
+<th>Name</th>
+<th>Attendance</th>
+</tr>
+</thead>
+<tbody id="students"></tbody>
+</table>
+
+<button onclick="saveAttendance()">Save Attendance</button>
+<button onclick="showAttendance()">View Saved Attendance</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+let studentList = JSON.parse(
+  localStorage.getItem("students") || "[]"
+);
+
+let attendance = JSON.parse(
+  localStorage.getItem("attendance") || "{}"
+);
+
+document.getElementById("date").value =
+  new Date().toLocaleDateString("en-CA");
+
+function addStudent() {
+  let name = document.getElementById("name").value.trim();
+  let roll = document.getElementById("roll").value.trim();
+
+  if (!name || !roll) {
+    alert("Enter student name and roll number!");
+    return;
+  }
+
+  if (studentList.some(s => s.roll === roll)) {
+    alert("This roll number already exists!");
+    return;
+  }
+
+  studentList.push({name, roll});
+  localStorage.setItem("students", JSON.stringify(studentList));
+
+  document.getElementById("name").value = "";
+  document.getElementById("roll").value = "";
+
+  displayStudents();
+}
+
+function displayStudents() {
+  let tbody = document.getElementById("students");
+  tbody.innerHTML = "";
+
+  studentList.forEach((s, i) => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${escapeHTML(s.roll)}</td>
+        <td>${escapeHTML(s.name)}</td>
+        <td>
+          <select id="status${i}">
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>`;
+  });
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[c]);
+}
+
+function saveAttendance() {
+  let date = document.getElementById("date").value;
+
+  if (!date) {
+    alert("Select a date first!");
+    return;
+  }
+
+  if (!studentList.length) {
+    alert("Add students first!");
+    return;
+  }
+
+  attendance[date] = {};
+
+  studentList.forEach((s, i) => {
+    attendance[date][s.roll] = {
+      name: s.name,
+      status: document.getElementById("status" + i).value
+    };
+  });
+
+  localStorage.setItem("attendance", JSON.stringify(attendance));
+  alert("Attendance saved on this device!");
+}
+
+function showAttendance() {
+  let date = document.getElementById("date").value;
+  let records = attendance[date] || {};
+
+  let output = `<h3>Attendance: ${escapeHTML(date)}</h3>`;
+
+  if (!Object.keys(records).length) {
+    output += "<p>No saved attendance for this date.</p>";
+  } else {
+    for (let roll in records) {
+      output += `<p>${escapeHTML(roll)} — ${
+        escapeHTML(records[roll].name)
+      }: ${escapeHTML(records[roll].status)}</p>`;
+    }
+  }
+
+  document.getElementById("result").innerHTML = output;
+}
+
+displayStudents();
+</script>
+
 </body>
 </html>
