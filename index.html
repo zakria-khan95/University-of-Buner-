@@ -167,7 +167,18 @@ footer{text-align:center;background:#022c22;color:white;padding:18px}
 <footer>University of Buner | Cyber Security | Semester 1</footer>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script>
+<script>const firebaseConfig = {
+  apiKey: "AIzaSyDRs7hJ13P6gvevPIZHI06kEvAEvGYVdRk",
+  authDomain: "university-of-buner.firebaseapp.com",
+  projectId: "university-of-buner",
+  storageBucket: "university-of-buner.firebasestorage.app",
+  messagingSenderId: "978440920543",
+  appId: "1:978440920543:web:335aa0b1084e6bba19786a",
+  measurementId: "G-G3V0VV9RDM"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 const subjects=[
 "Programming Fundamentals",
 "Functional English",
