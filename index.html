@@ -3,63 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>University of Buner</title>
+<title>University of Buner - Cyber Security</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    background: #f0f4f1;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #172033;
+}
+header {
+    background: #064e3b;
+    color: white;
+    padding: 25px 12px;
     text-align: center;
 }
-
-header {
-    background: #075b36;
-    color: white;
-    padding: 25px;
-}
-
-nav {
-    background: #063d27;
-    padding: 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 8px;
-    display: inline-block;
-}
-
-section {
-    background: white;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-h2 {
-    color: #075b36;
-}
-
-button {
-    background: #075b36;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
+header h1 {
     margin: 5px;
 }
-
+header p {
+    margin: 7px;
+}
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: #022c22;
+    padding: 8px;
+}
+nav button {
+    background: #ffffff;
+    color: #064e3b;
+    border: 0;
+    border-radius: 5px;
+    padding: 11px 14px;
+    margin: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 15px;
+}
+.card {
+    background: white;
+    padding: 17px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px #00000012;
+}
+h2 {
+    color: #065f46;
+}
+.table-wrap {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+th, td {
+    border: 1px solid #cbd5e1;
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background: #d1fae5;
+}
 input, select {
     padding: 10px;
-    margin: 5px;
+    margin: 5px 0;
+    border: 1px solid #94a3b8;
+    border-radius: 5px;
+    max-width: 100%;
 }
-
-footer {
-    background: #063d27;
+.action {
+    background: #047857;
     color: white;
-    padding: 15px;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px 14px;
+    cursor: pointer;
+    margin: 5px 0;
+}
+.present {
+    color: #047857;
+    font-weight: bold;
+}
+.absent {
+    color: #dc2626;
+    font-weight: bold;
+}
+.section {
+    display: none;
+}
+.section.active {
+    display: block;
+}
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #022c22;
+    color: white;
+}
+.small {
+    color: #64748b;
+    font-size: 14px;
 }
 </style>
 </head>
@@ -68,126 +122,152 @@ footer {
 
 <header>
     <h1>University of Buner</h1>
-    <p>Student Learning Portal</p>
+    <p>Department of Computer Science</p>
+    <h2 style="color:white;">Cyber Security</h2>
+    <p>Section B | Semester 1 | Fall 2026</p>
 </header>
 
 <nav>
-    <a href="#home">Home</a>
-    <a href="#subjects">Subjects</a>
-    <a href="#notes">Notes</a>
-    <a href="#attendance">Attendance</a>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('timetable')">Timetable</button>
+    <button onclick="showSection('attendance')">Attendance</button>
+    <button onclick="showSection('report')">Monthly Report</button>
 </nav>
 
-<section id="home">
-    <h2>Welcome Students!</h2>
-    <p>Welcome to our University Learning Portal.</p>
+<main>
+
+<section id="home" class="section active">
+    <div class="card">
+        <h2>Welcome, Cyber Security Students!</h2>
+        <p>This website is for Semester 1, Section B.</p>
+        <p><b>Academic Session:</b> Fall 2026</p>
+        <p><b>Class Days:</b> Monday to Friday</p>
+        <p><b>Class Hours:</b> 9:00 AM to 4:00 PM</p>
+        <p class="small">
+            Note: The exact timetable, teacher names and room numbers
+            must be entered after confirming the original timetable.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>My Subjects</h2>
+        <div id="subjectList"></div>
+    </div>
 </section>
 
-<section id="subjects">
-    <h2>📚 My Subjects</h2>
-    <p>Programming Fundamentals</p>
-    <p>English</p>
-    <p>Mathematics</p>
-    <p>Physics</p>
-    <p>Computer Fundamentals</p>
+<section id="timetable" class="section">
+    <div class="card">
+        <h2>Weekly Class Timetable</h2>
+        <p class="small">
+            The exact class periods have not been confirmed.
+            Add the correct details in the table below when available.
+        </p>
+
+        <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                    <th>Room</th>
+                </tr>
+            </thead>
+            <tbody id="timetableBody"></tbody>
+        </table>
+        </div>
+
+        <h3>Add a Timetable Entry</h3>
+        <label>Day:</label><br>
+        <select id="day">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+        </select><br>
+
+        <label>Time:</label><br>
+        <input id="classTime" placeholder="e.g. 9:00 - 10:00"><br>
+
+        <label>Subject:</label><br>
+        <select id="classSubject"></select><br>
+
+        <label>Teacher:</label><br>
+        <input id="teacher" placeholder="Teacher name"><br>
+
+        <label>Room:</label><br>
+        <input id="room" placeholder="Room number"><br>
+
+        <button class="action" onclick="addTimetable()">Add Class</button>
+    </div>
 </section>
 
-<section id="notes">
-    <h2>📝 Study Notes</h2>
+<section id="attendance" class="section">
+    <div class="card">
+        <h2>Daily Attendance</h2>
 
-    <h3>Programming Fundamentals</h3>
-    <p>Programming means giving instructions to a computer.</p>
+        <label>Date:</label><br>
+        <input type="date" id="attendanceDate"><br>
 
-    <h3>C++ Programming</h3>
-    <p>C++ is a programming language used to develop software.</p>
+        <label>Subject:</label><br>
+        <select id="attendanceSubject"></select><br>
 
-    <h3>Computer Fundamentals</h3>
-    <p>A computer is an electronic machine that processes data.</p>
+        <label>Status:</label><br>
+        <select id="attendanceStatus">
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select><br>
+
+        <button class="action" onclick="saveAttendance()">
+            Save Attendance
+        </button>
+
+        <h3>Attendance Records</h3>
+        <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="attendanceBody"></tbody>
+        </table>
+        </div>
+    </div>
 </section>
 
-<section id="attendance">
-    <h2>📅 Daily Attendance</h2>
+<section id="report" class="section">
+    <div class="card">
+        <h2>Monthly Attendance Report</h2>
 
-    <input type="text" id="student"
-    placeholder="Enter Student Name">
+        <label>Select Month:</label><br>
+        <input type="month" id="reportMonth"><br>
 
-    <br>
+        <button class="action" onclick="showReport()">Show Report</button>
 
-    <select id="status">
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-    </select>
-
-    <br>
-
-    <button onclick="markAttendance()">
-        Mark Attendance
-    </button>
-
-    <h3>Attendance Record</h3>
-    <div id="records"></div>
+        <div id="reportResult"></div>
+    </div>
 </section>
+
+</main>
 
 <footer>
-    <p>University of Buner | Student Learning Portal</p>
-    <p>Created for Educational Purposes</p>
+    University of Buner | Cyber Security | Semester 1
 </footer>
 
 <script>
-function markAttendance() {
-    let name = document.getElementById("student").value;
-    let status = document.getElementById("status").value;
+const subjects = [
+    "Programming Fundamentals",
+    "Functional English",
+    "Quantitative Reasoning",
+    "Digital Logic Design (DLD)",
+    "Application of ICT",
+    "Additional Mathematics",
+    "Introduction to Psychology"
+];
 
-    if (name.trim() === "") {
-        alert("Please enter student name!");
-        return;
-    }
-
-    let date = new Date().toLocaleDateString();
-
-    let record = {
-        name: name,
-        status: status,
-        date: date
-    };
-
-    let attendance = JSON.parse(
-        localStorage.getItem("attendance") || "[]"
-    );
-
-    attendance.push(record);
-
-    localStorage.setItem(
-        "attendance",
-        JSON.stringify(attendance)
-    );
-
-    document.getElementById("student").value = "";
-
-    showAttendance();
-
-    alert("Attendance recorded!");
-}
-
-function showAttendance() {
-    let attendance = JSON.parse(
-        localStorage.getItem("attendance") || "[]"
-    );
-
-    let output = "";
-
-    attendance.forEach(function(record) {
-        output += "<p>" +
-            record.name + " | " +
-            record.status + " | " +
-            record.date + "</p>";
-    });
-
-    document.getElementById("records").innerHTML = output;
-}
-
-showAttendance();
-</script>
-
-</body>
-</html>
+let timetable = JSON.parse
