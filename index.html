@@ -1,60 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University of Buner</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University of Buner</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f2f5f3;
-            text-align: center;
-        }
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f0f4f1;
+    text-align: center;
+}
 
-        header {
-            background: #075b36;
-            color: white;
-            padding: 25px 10px;
-        }
+header {
+    background: #075b36;
+    color: white;
+    padding: 25px;
+}
 
-        nav {
-            background: #063d27;
-            padding: 12px;
-        }
+nav {
+    background: #063d27;
+    padding: 15px;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 10px;
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 8px;
+    display: inline-block;
+}
 
-        section {
-            background: white;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-        }
+section {
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
 
-        h2 {
-            color: #075b36;
-        }
+h2 {
+    color: #075b36;
+}
 
-        button {
-            background: #075b36;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-        }
+button {
+    background: #075b36;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+}
 
-        footer {
-            background: #063d27;
-            color: white;
-            padding: 15px;
-        }
-    </style>
+input, select {
+    padding: 10px;
+    margin: 5px;
+}
+
+footer {
+    background: #063d27;
+    color: white;
+    padding: 15px;
+}
+</style>
 </head>
 
 <body>
@@ -67,17 +74,17 @@
 <nav>
     <a href="#home">Home</a>
     <a href="#subjects">Subjects</a>
+    <a href="#notes">Notes</a>
     <a href="#attendance">Attendance</a>
-    <a href="#contact">Contact</a>
 </nav>
 
 <section id="home">
     <h2>Welcome Students!</h2>
-    <p>Welcome to our University of Buner learning website.</p>
+    <p>Welcome to our University Learning Portal.</p>
 </section>
 
 <section id="subjects">
-    <h2>My Subjects</h2>
+    <h2>📚 My Subjects</h2>
     <p>Programming Fundamentals</p>
     <p>English</p>
     <p>Mathematics</p>
@@ -85,22 +92,102 @@
     <p>Computer Fundamentals</p>
 </section>
 
-<section id="attendance">
-    <h2>Student Attendance</h2>
-    <p>Attendance management section.</p>
-    <button onclick="alert('Attendance system will be added next!')">
-        Check Attendance
-    </button>
+<section id="notes">
+    <h2>📝 Study Notes</h2>
+
+    <h3>Programming Fundamentals</h3>
+    <p>Programming means giving instructions to a computer.</p>
+
+    <h3>C++ Programming</h3>
+    <p>C++ is a programming language used to develop software.</p>
+
+    <h3>Computer Fundamentals</h3>
+    <p>A computer is an electronic machine that processes data.</p>
 </section>
 
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Email: zakria95@gmail.com</p>
+<section id="attendance">
+    <h2>📅 Daily Attendance</h2>
+
+    <input type="text" id="student"
+    placeholder="Enter Student Name">
+
+    <br>
+
+    <select id="status">
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+    </select>
+
+    <br>
+
+    <button onclick="markAttendance()">
+        Mark Attendance
+    </button>
+
+    <h3>Attendance Record</h3>
+    <div id="records"></div>
 </section>
 
 <footer>
     <p>University of Buner | Student Learning Portal</p>
+    <p>Created for Educational Purposes</p>
 </footer>
+
+<script>
+function markAttendance() {
+    let name = document.getElementById("student").value;
+    let status = document.getElementById("status").value;
+
+    if (name.trim() === "") {
+        alert("Please enter student name!");
+        return;
+    }
+
+    let date = new Date().toLocaleDateString();
+
+    let record = {
+        name: name,
+        status: status,
+        date: date
+    };
+
+    let attendance = JSON.parse(
+        localStorage.getItem("attendance") || "[]"
+    );
+
+    attendance.push(record);
+
+    localStorage.setItem(
+        "attendance",
+        JSON.stringify(attendance)
+    );
+
+    document.getElementById("student").value = "";
+
+    showAttendance();
+
+    alert("Attendance recorded!");
+}
+
+function showAttendance() {
+    let attendance = JSON.parse(
+        localStorage.getItem("attendance") || "[]"
+    );
+
+    let output = "";
+
+    attendance.forEach(function(record) {
+        output += "<p>" +
+            record.name + " | " +
+            record.status + " | " +
+            record.date + "</p>";
+    });
+
+    document.getElementById("records").innerHTML = output;
+}
+
+showAttendance();
+</script>
 
 </body>
 </html>
