@@ -38,7 +38,16 @@ footer{text-align:center;background:#022c22;color:white;padding:18px}
 <h2 style="color:white">Cyber Security</h2>
 <p>Section B | Semester 1 | Fall 2026</p>
 </header>
-
+<section id="studentLogin" style="max-width:450px;margin:25px auto;padding:20px;background:white;border-radius:10px">
+<h2>Student Login</h2>
+<label>Email Address</label>
+<input type="email" id="studentEmail" placeholder="Enter your email">
+<label>Password</label>
+<input type="password" id="studentPassword" placeholder="Enter password">
+<button class="action" onclick="studentLogin()">Login</button>
+<button class="action" onclick="studentRegister()">Create Account</button>
+<p id="loginMessage"></p>
+</section>
 <nav>
 <button onclick="showPage('home')">Home</button>
 <button onclick="showPage('timetable')">Timetable</button>
