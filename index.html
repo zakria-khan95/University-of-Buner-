@@ -1,203 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>University of Buner - Attendance</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f4f8;
-  margin: 0;
-  padding: 20px;
-}
-header {
-  background: #075e3b;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-.container {
-  background: white;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 700px;
-  border-radius: 10px;
-}
-input, button {
-  padding: 10px;
-  margin: 5px 0;
-  box-sizing: border-box;
-}
-input {
-  width: 100%;
-}
-button {
-  cursor: pointer;
-  background: #075e3b;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Buner</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f2f5f3;
+            text-align: center;
+        }
+
+        header {
+            background: #075b36;
+            color: white;
+            padding: 25px 10px;
+        }
+
+        nav {
+            background: #063d27;
+            padding: 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        section {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #075b36;
+        }
+
+        button {
+            background: #075b36;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: #063d27;
+            color: white;
+            padding: 15px;
+        }
+    </style>
 </head>
+
 <body>
 
 <header>
-<h1>University of Buner</h1>
-<h2>Daily Attendance System</h2>
+    <h1>University of Buner</h1>
+    <p>Student Learning Portal</p>
 </header>
 
-<div class="container">
-<h3>Add Student</h3>
+<nav>
+    <a href="#home">Home</a>
+    <a href="#subjects">Subjects</a>
+    <a href="#attendance">Attendance</a>
+    <a href="#contact">Contact</a>
+</nav>
 
-<input id="name" placeholder="Student Name">
-<input id="roll" placeholder="Roll Number">
+<section id="home">
+    <h2>Welcome Students!</h2>
+    <p>Welcome to our University of Buner learning website.</p>
+</section>
 
-<button onclick="addStudent()">Add Student</button>
+<section id="subjects">
+    <h2>My Subjects</h2>
+    <p>Programming Fundamentals</p>
+    <p>English</p>
+    <p>Mathematics</p>
+    <p>Physics</p>
+    <p>Computer Fundamentals</p>
+</section>
 
-<h3>Mark Attendance</h3>
-<label>Select Date:</label>
-<input type="date" id="date">
+<section id="attendance">
+    <h2>Student Attendance</h2>
+    <p>Attendance management section.</p>
+    <button onclick="alert('Attendance system will be added next!')">
+        Check Attendance
+    </button>
+</section>
 
-<table>
-<thead>
-<tr>
-<th>Roll No.</th>
-<th>Name</th>
-<th>Attendance</th>
-</tr>
-</thead>
-<tbody id="students"></tbody>
-</table>
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Email: zakria95@gmail.com</p>
+</section>
 
-<button onclick="saveAttendance()">Save Attendance</button>
-<button onclick="showAttendance()">View Saved Attendance</button>
-
-<div id="result"></div>
-</div>
-
-<script>
-let studentList = JSON.parse(
-  localStorage.getItem("students") || "[]"
-);
-
-let attendance = JSON.parse(
-  localStorage.getItem("attendance") || "{}"
-);
-
-document.getElementById("date").value =
-  new Date().toLocaleDateString("en-CA");
-
-function addStudent() {
-  let name = document.getElementById("name").value.trim();
-  let roll = document.getElementById("roll").value.trim();
-
-  if (!name || !roll) {
-    alert("Enter student name and roll number!");
-    return;
-  }
-
-  if (studentList.some(s => s.roll === roll)) {
-    alert("This roll number already exists!");
-    return;
-  }
-
-  studentList.push({name, roll});
-  localStorage.setItem("students", JSON.stringify(studentList));
-
-  document.getElementById("name").value = "";
-  document.getElementById("roll").value = "";
-
-  displayStudents();
-}
-
-function displayStudents() {
-  let tbody = document.getElementById("students");
-  tbody.innerHTML = "";
-
-  studentList.forEach((s, i) => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${escapeHTML(s.roll)}</td>
-        <td>${escapeHTML(s.name)}</td>
-        <td>
-          <select id="status${i}">
-            <option value="Present">Present</option>
-            <option value="Absent">Absent</option>
-          </select>
-        </td>
-      </tr>`;
-  });
-}
-
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, c => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[c]);
-}
-
-function saveAttendance() {
-  let date = document.getElementById("date").value;
-
-  if (!date) {
-    alert("Select a date first!");
-    return;
-  }
-
-  if (!studentList.length) {
-    alert("Add students first!");
-    return;
-  }
-
-  attendance[date] = {};
-
-  studentList.forEach((s, i) => {
-    attendance[date][s.roll] = {
-      name: s.name,
-      status: document.getElementById("status" + i).value
-    };
-  });
-
-  localStorage.setItem("attendance", JSON.stringify(attendance));
-  alert("Attendance saved on this device!");
-}
-
-function showAttendance() {
-  let date = document.getElementById("date").value;
-  let records = attendance[date] || {};
-
-  let output = `<h3>Attendance: ${escapeHTML(date)}</h3>`;
-
-  if (!Object.keys(records).length) {
-    output += "<p>No saved attendance for this date.</p>";
-  } else {
-    for (let roll in records) {
-      output += `<p>${escapeHTML(roll)} — ${
-        escapeHTML(records[roll].name)
-      }: ${escapeHTML(records[roll].status)}</p>`;
-    }
-  }
-
-  document.getElementById("result").innerHTML = output;
-}
-
-displayStudents();
-</script>
+<footer>
+    <p>University of Buner | Student Learning Portal</p>
+</footer>
 
 </body>
 </html>
