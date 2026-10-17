@@ -3,271 +3,310 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>University of Buner - Cyber Security</title>
+<title>University of Buner | Cyber Security</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    color: #172033;
-}
-header {
-    background: #064e3b;
-    color: white;
-    padding: 25px 12px;
-    text-align: center;
-}
-header h1 {
-    margin: 5px;
-}
-header p {
-    margin: 7px;
-}
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background: #022c22;
-    padding: 8px;
-}
-nav button {
-    background: #ffffff;
-    color: #064e3b;
-    border: 0;
-    border-radius: 5px;
-    padding: 11px 14px;
-    margin: 4px;
-    font-weight: bold;
-    cursor: pointer;
-}
-main {
-    max-width: 1100px;
-    margin: auto;
-    padding: 15px;
-}
-.card {
-    background: white;
-    padding: 17px;
-    border-radius: 10px;
-    margin-bottom: 18px;
-    box-shadow: 0 2px 8px #00000012;
-}
-h2 {
-    color: #065f46;
-}
-.table-wrap {
-    overflow-x: auto;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 650px;
-}
-th, td {
-    border: 1px solid #cbd5e1;
-    padding: 10px;
-    text-align: center;
-}
-th {
-    background: #d1fae5;
-}
-input, select {
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #94a3b8;
-    border-radius: 5px;
-    max-width: 100%;
-}
-.action {
-    background: #047857;
-    color: white;
-    border: 0;
-    border-radius: 5px;
-    padding: 10px 14px;
-    cursor: pointer;
-    margin: 5px 0;
-}
-.present {
-    color: #047857;
-    font-weight: bold;
-}
-.absent {
-    color: #dc2626;
-    font-weight: bold;
-}
-.section {
-    display: none;
-}
-.section.active {
-    display: block;
-}
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #022c22;
-    color: white;
-}
-.small {
-    color: #64748b;
-    font-size: 14px;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+header{background:#064e3b;color:white;text-align:center;padding:24px 10px}
+header h1{margin:5px}
+header p{margin:8px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;background:#022c22;padding:8px}
+nav button{padding:11px;margin:4px;border:0;border-radius:5px;cursor:pointer;font-weight:bold}
+main{max-width:1100px;margin:auto;padding:15px}
+.card{background:white;padding:18px;margin-bottom:18px;border-radius:10px;box-shadow:0 2px 8px #0001}
+h2,h3{color:#047857}
+button.action{background:#047857;color:white;padding:10px 14px;border:0;border-radius:5px;cursor:pointer;margin:5px 0}
+input,select,textarea{padding:10px;margin:5px 0;width:100%;max-width:500px;border:1px solid #cbd5e1;border-radius:5px}
+textarea{min-height:100px}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{border:1px solid #cbd5e1;padding:10px;text-align:left}
+th{background:#d1fae5}
+.table-wrap{overflow-x:auto}
+.section{display:none}
+.section.active{display:block}
+.small{font-size:13px;color:#64748b}
+footer{text-align:center;background:#022c22;color:white;padding:18px}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>University of Buner</h1>
-    <p>Department of Computer Science</p>
-    <h2 style="color:white;">Cyber Security</h2>
-    <p>Section B | Semester 1 | Fall 2026</p>
+<h1>University of Buner</h1>
+<p>Department of Computer Science</p>
+<h2 style="color:white">Cyber Security</h2>
+<p>Section B | Semester 1 | Fall 2026</p>
 </header>
 
 <nav>
-    <button onclick="showSection('home')">Home</button>
-    <button onclick="showSection('timetable')">Timetable</button>
-    <button onclick="showSection('attendance')">Attendance</button>
-    <button onclick="showSection('report')">Monthly Report</button>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('timetable')">Timetable</button>
+<button onclick="showPage('attendance')">Attendance</button>
+<button onclick="showPage('report')">Reports</button>
+<button onclick="showPage('notes')">Notes & Lectures</button>
+<button onclick="showPage('subjects')">Subjects</button>
 </nav>
 
 <main>
 
 <section id="home" class="section active">
-    <div class="card">
-        <h2>Welcome, Cyber Security Students!</h2>
-        <p>This website is for Semester 1, Section B.</p>
-        <p><b>Academic Session:</b> Fall 2026</p>
-        <p><b>Class Days:</b> Monday to Friday</p>
-        <p><b>Class Hours:</b> 9:00 AM to 4:00 PM</p>
-        <p class="small">
-            Note: The exact timetable, teacher names and room numbers
-            must be entered after confirming the original timetable.
-        </p>
-    </div>
+<div class="card">
+<h2>Welcome to Cyber Security</h2>
+<p>Department of Computer Science</p>
+<p><b>Section:</b> B</p>
+<p><b>Semester:</b> 1</p>
+<p><b>Session:</b> Fall 2026</p>
+<p><b>Class Days:</b> Monday to Friday</p>
+<p>This website helps you organize your timetable, attendance, subjects and study notes.</p>
+</div>
 
-    <div class="card">
-        <h2>My Subjects</h2>
-        <div id="subjectList"></div>
-    </div>
+<div class="card">
+<h2>Website Dashboard</h2>
+<p id="totalClasses">Attendance records: 0</p>
+<p id="presentClasses">Present: 0</p>
+<p id="attendancePercent">Attendance: 0%</p>
+</div>
 </section>
 
 <section id="timetable" class="section">
-    <div class="card">
-        <h2>Weekly Class Timetable</h2>
-        <p class="small">
-            The exact class periods have not been confirmed.
-            Add the correct details in the table below when available.
-        </p>
+<div class="card">
+<h2>Weekly Timetable</h2>
+<p class="small">Enter the exact class details from your official timetable. Teacher names and room numbers have not been confirmed.</p>
 
-        <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Subject</th>
-                    <th>Teacher</th>
-                    <th>Room</th>
-                </tr>
-            </thead>
-            <tbody id="timetableBody"></tbody>
-        </table>
-        </div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Day</th><th>Time</th><th>Subject</th><th>Teacher</th><th>Room</th></tr>
+</thead>
+<tbody id="timeRows"></tbody>
+</table>
+</div>
 
-        <h3>Add a Timetable Entry</h3>
-        <label>Day:</label><br>
-        <select id="day">
-            <option>Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-        </select><br>
-
-        <label>Time:</label><br>
-        <input id="classTime" placeholder="e.g. 9:00 - 10:00"><br>
-
-        <label>Subject:</label><br>
-        <select id="classSubject"></select><br>
-
-        <label>Teacher:</label><br>
-        <input id="teacher" placeholder="Teacher name"><br>
-
-        <label>Room:</label><br>
-        <input id="room" placeholder="Room number"><br>
-
-        <button class="action" onclick="addTimetable()">Add Class</button>
-    </div>
+<h3>Add a Class</h3>
+<select id="classDay">
+<option>Monday</option><option>Tuesday</option>
+<option>Wednesday</option><option>Thursday</option><option>Friday</option>
+</select>
+<input id="classTime" placeholder="Class time, e.g. 9:00–10:00">
+<select id="classSubject"></select>
+<input id="classTeacher" placeholder="Teacher name">
+<input id="classRoom" placeholder="Room number">
+<button class="action" onclick="addClass()">Save Class</button>
+</div>
 </section>
 
 <section id="attendance" class="section">
-    <div class="card">
-        <h2>Daily Attendance</h2>
+<div class="card">
+<h2>Daily Attendance</h2>
+<label>Date</label>
+<input type="date" id="attDate">
+<label>Subject</label>
+<select id="attSubject"></select>
+<label>Attendance Status</label>
+<select id="attStatus">
+<option>Present</option>
+<option>Absent</option>
+</select>
+<button class="action" onclick="saveAtt()">Save Attendance</button>
 
-        <label>Date:</label><br>
-        <input type="date" id="attendanceDate"><br>
-
-        <label>Subject:</label><br>
-        <select id="attendanceSubject"></select><br>
-
-        <label>Status:</label><br>
-        <select id="attendanceStatus">
-            <option value="Present">Present</option>
-            <option value="Absent">Absent</option>
-        </select><br>
-
-        <button class="action" onclick="saveAttendance()">
-            Save Attendance
-        </button>
-
-        <h3>Attendance Records</h3>
-        <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Subject</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="attendanceBody"></tbody>
-        </table>
-        </div>
-    </div>
+<h3>Attendance Records</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Date</th><th>Subject</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="attRows"></tbody>
+</table>
+</div>
+</div>
 </section>
 
 <section id="report" class="section">
-    <div class="card">
-        <h2>Monthly Attendance Report</h2>
+<div class="card">
+<h2>Monthly Attendance Report</h2>
+<label>Select Month</label>
+<input type="month" id="reportMonth">
+<button class="action" onclick="makeReport()">Generate Report</button>
+<div id="reportOutput"></div>
+</div>
+</section>
 
-        <label>Select Month:</label><br>
-        <input type="month" id="reportMonth"><br>
+<section id="notes" class="section">
+<div class="card">
+<h2>Subject Notes & Lectures</h2>
+<label>Subject</label>
+<select id="noteSubject"></select>
+<label>Topic Title</label>
+<input id="noteTitle" placeholder="Enter topic title">
+<label>Notes / Lecture</label>
+<textarea id="noteText" placeholder="Write your notes here..."></textarea>
+<button class="action" onclick="saveNote()">Save Notes</button>
+<h3>Saved Notes</h3>
+<div id="noteRows"></div>
+<p class="small">Only save notes you have permission to publish. This example stores notes in this browser.</p>
+</div>
+</section>
 
-        <button class="action" onclick="showReport()">Show Report</button>
-
-        <div id="reportResult"></div>
-    </div>
+<section id="subjects" class="section">
+<div class="card">
+<h2>Semester 1 Subjects</h2>
+<div id="subjectRows"></div>
+</div>
 </section>
 
 </main>
 
-<footer>
-    University of Buner | Cyber Security | Semester 1
-</footer>
+<footer>University of Buner | Cyber Security | Semester 1</footer>
 
 <script>
-const subjects = [
-    "Programming Fundamentals",
-    "Functional English",
-    "Quantitative Reasoning",
-    "Digital Logic Design (DLD)",
-    "Application of ICT",
-    "Additional Mathematics",
-    "Introduction to Psychology"
+const subjects=[
+"Programming Fundamentals",
+"Functional English",
+"Quantitative Reasoning",
+"Digital Logic Design (DLD)",
+"Application of ICT",
+"Additional Mathematics",
+"Introduction to Psychology"
 ];
 
-let timetable = JSON.parse
+let classes=JSON.parse(localStorage.getItem("ub_classes")||"[]");
+let records=JSON.parse(localStorage.getItem("ub_attendance")||"[]");
+let notes=JSON.parse(localStorage.getItem("ub_notes")||"[]");
+
+function saveData(key,data){
+localStorage.setItem(key,JSON.stringify(data));
+}
+
+function showPage(id){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+function fillSelect(id){
+const el=document.getElementById(id);
+subjects.forEach(s=>{
+const o=document.createElement("option");
+o.value=s;o.textContent=s;el.appendChild(o);
+});
+}
+
+["classSubject","attSubject","noteSubject"].forEach(fillSelect);
+
+document.getElementById("subjectRows").innerHTML=
+subjects.map(s=>"<div class='card'><b>"+s+"</b></div>").join("");
+
+function addClass(){
+const time=document.getElementById("classTime").value.trim();
+if(!time){alert("Please enter class time.");return;}
+
+classes.push({
+day:document.getElementById("classDay").value,
+time:time,
+subject:document.getElementById("classSubject").value,
+teacher:document.getElementById("classTeacher").value.trim()||"Not entered",
+room:document.getElementById("classRoom").value.trim()||"Not entered"
+});
+saveData("ub_classes",classes);
+document.getElementById("classTime").value="";
+document.getElementById("classTeacher").value="";
+document.getElementById("classRoom").value="";
+renderClasses();
+alert("Class saved!");
+}
+
+function renderClasses(){
+const days=["Monday","Tuesday","Wednesday","Thursday","Friday"];
+classes.sort((a,b)=>days.indexOf(a.day)-days.indexOf(b.day));
+document.getElementById("timeRows").innerHTML=classes.map(c=>
+"<tr><td>"+c.day+"</td><td>"+escapeHTML(c.time)+"</td><td>"+escapeHTML(c.subject)+
+"</td><td>"+escapeHTML(c.teacher)+"</td><td>"+escapeHTML(c.room)+"</td></tr>"
+).join("")||"<tr><td colspan='5'>No classes added yet.</td></tr>";
+}
+
+function saveAtt(){
+const date=document.getElementById("attDate").value;
+if(!date){alert("Select a date first.");return;}
+const subject=document.getElementById("attSubject").value;
+const status=document.getElementById("attStatus").value;
+const i=records.findIndex(r=>r.date===date&&r.subject===subject);
+const item={date,subject,status};
+if(i>=0)records[i]=item;else records.push(item);
+saveData("ub_attendance",records);
+renderAttendance();
+alert("Attendance saved!");
+}
+
+function renderAttendance(){
+const sorted=[...records].sort((a,b)=>b.date.localeCompare(a.date));
+document.getElementById("attRows").innerHTML=sorted.map(r=>
+"<tr><td>"+r.date+"</td><td>"+escapeHTML(r.subject)+"</td><td>"+r.status+
+"</td><td><button class='action' onclick='deleteAtt("+JSON.stringify(r.date)+","+JSON.stringify(r.subject)+")'>Delete</button></td></tr>"
+).join("")||"<tr><td colspan='4'>No attendance records yet.</td></tr>";
+updateDashboard();
+}
+
+function deleteAtt(date,subject){
+if(!confirm("Delete this attendance record?"))return;
+records=records.filter(r=>!(r.date===date&&r.subject===subject));
+saveData("ub_attendance",records);
+renderAttendance();
+}
+
+function updateDashboard(){
+const total=records.length;
+const present=records.filter(r=>r.status==="Present").length;
+document.getElementById("totalClasses").textContent="Attendance records: "+total;
+document.getElementById("presentClasses").textContent="Present: "+present;
+document.getElementById("attendancePercent").textContent=
+"Attendance: "+(total?Math.round(present/total*100):0)+"%";
+}
+
+function makeReport(){
+const month=document.getElementById("reportMonth").value;
+if(!month){alert("Select a month.");return;}
+let html="<h3>Report: "+month+"</h3>";
+subjects.forEach(s=>{
+const list=records.filter(r=>r.subject===s&&r.date.startsWith(month));
+const present=list.filter(r=>r.status==="Present").length;
+const total=list.length;
+html+="<p><b>"+s+"</b>: "+present+" present out of "+total+
+" records ("+(total?Math.round(present/total*100):0)+"%)</p>";
+});
+document.getElementById("reportOutput").innerHTML=html;
+}
+
+function saveNote(){
+const subject=document.getElementById("noteSubject").value;
+const title=document.getElementById("noteTitle").value.trim();
+const text=document.getElementById("noteText").value.trim();
+if(!title||!text){alert("Enter topic title and notes.");return;}
+notes.push({subject,title,text});
+saveData("ub_notes",notes);
+document.getElementById("noteTitle").value="";
+document.getElementById("noteText").value="";
+renderNotes();
+alert("Notes saved!");
+}
+
+function escapeHTML(value){
+return String(value).replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
+}
+
+function renderNotes(){
+document.getElementById("noteRows").innerHTML=notes.map(n=>
+"<div class='card'><h3>"+escapeHTML(n.subject)+"</h3><b>"+
+escapeHTML(n.title)+"</b><p style='white-space:pre-wrap'>"+
+escapeHTML(n.text)+"</p></div>"
+).join("")||"<p>No notes saved yet.</p>";
+}
+
+document.getElementById("attDate").value=new Date().toISOString().slice(0,10);
+document.getElementById("reportMonth").value=new Date().toISOString().slice(0,7);
+renderClasses();
+renderAttendance();
+renderNotes();
+</script>
+
+</body>
+</html>
