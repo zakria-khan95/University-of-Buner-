@@ -196,7 +196,44 @@ let notes=JSON.parse(localStorage.getItem("ub_notes")||"[]");
 function saveData(key,data){
 localStorage.setItem(key,JSON.stringify(data));
 }
+function studentRegister(){
+  const email = document.getElementById("studentEmail").value.trim();
+  const password = document.getElementById("studentPassword").value;
+  const message = document.getElementById("loginMessage");
 
+  if (!email || !password) {
+    message.textContent = "Email aur password enter karein.";
+    return;
+  }
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      message.textContent = "Account ban gaya! Aap login ho gaye hain.";
+      document.getElementById("studentLogin").style.display = "none";
+    })
+    .catch(error => {
+      message.textContent = error.message;
+    });
+}
+
+function studentLogin(){
+  const email = document.getElementById("studentEmail").value.trim();
+  const password = document.getElementById("studentPassword").value;
+  const message = document.getElementById("loginMessage");
+
+  if (!email || !password) {
+    message.textContent = "Email aur password enter karein.";
+    return;
+  }
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      document.getElementById("studentLogin").style.display = "none";
+    })
+    .catch(error => {
+      message.textContent = "Login nahi hua: " + error.message;
+    });
+}
 function showPage(id){
 document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
