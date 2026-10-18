@@ -532,6 +532,26 @@ if (classSelector) {
     displayStudents();
   });
 }
+</script><!-- Select Class / Subject -->
+<label for="className"><b>Select Class / Subject:</b></label>
+<select id="className" style="width:100%;padding:10px;margin:8px 0;">
+  <option value="Programming Fundamentals">Programming Fundamentals</option>
+  <option value="Functional English">Functional English</option>
+  <option value="Quantitative Reasoning">Quantitative Reasoning</option>
+  <option value="Digital Logic Design (DLD)">Digital Logic Design (DLD)</option>
+  <option value="Application of ICT">Application of ICT</option>
+  <option value="Additional Mathematics">Additional Mathematics</option>
+  <option value="Introduction to Psychology">Introduction to Psychology</option>
+</select>
+
+<script>
+const classSelector = document.getElementById("className");
+
+if (classSelector) {
+  classSelector.addEventListener("change", function () {
+    displayStudents();
+  });
+}
 </script>
 displayStudents();
 </script>
