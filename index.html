@@ -1,137 +1,832 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Zakria Khan | University of Buner</title>
+<title>University of Buner | Student Portal</title>
 
-    <meta name="description" content="Welcome to Zakria Khan's University of Buner educational website. Find information about Programming Fundamentals, Computer Science, Cyber Security, Artificial Intelligence and university studies.">
+<meta name="description"
+content="University of Buner Student Portal prototype by Zakria Khan. Student records, attendance, subjects, assignments and notices.">
 
-    <meta name="keywords" content="Zakria Khan, Zakria, University of Buner, Programming Fundamentals, Computer Science, Cyber Security, Artificial Intelligence">
+<meta name="author" content="Zakria Khan">
 
-    <meta name="author" content="Zakria Khan">
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    <link rel="canonical" href="https://zakria-khan95.github.io/University-of-Buner-/">
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f5f9;
+    color: #243047;
+}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f0f4f8;
-            color: #222;
-        }
+header {
+    background: #075e45;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
 
-        header {
-            background: #075e45;
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-        }
+header h1 {
+    margin: 0 0 8px;
+}
 
-        nav {
-            background: #064b38;
-            padding: 12px;
-            text-align: center;
-        }
+header p {
+    margin: 0;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 10px;
-            font-weight: bold;
-        }
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    padding: 12px;
+    background: #064b38;
+}
 
-        main {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 15px;
-        }
+nav button {
+    background: white;
+    color: #075e45;
+    border: 0;
+    padding: 10px 13px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-        section {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
+nav button:hover {
+    background: #d8f5e8;
+}
 
-        h2 {
-            color: #075e45;
-        }
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 18px;
+}
 
-        .button {
-            display: inline-block;
-            background: #075e45;
-            color: white;
-            padding: 12px 18px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+.page {
+    display: none;
+}
 
-        footer {
-            background: #064b38;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-    </style>
+.page.active {
+    display: block;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px #0000000b;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.stat {
+    background: white;
+    border-left: 5px solid #07865e;
+    padding: 18px;
+    border-radius: 8px;
+}
+
+.stat h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+}
+
+.stat p {
+    margin: 0;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    margin: 7px 0 13px;
+    border: 1px solid #ccd3dc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.action {
+    border: 0;
+    border-radius: 5px;
+    background: #087653;
+    color: white;
+    padding: 11px 16px;
+    cursor: pointer;
+    margin: 4px 3px 4px 0;
+}
+
+.danger {
+    background: #b42318;
+}
+
+.secondary {
+    background: #345a9c;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 11px;
+    border: 1px solid #e0e5eb;
+    text-align: left;
+}
+
+th {
+    background: #e8f4ef;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.notice {
+    border-left: 4px solid #07865e;
+    background: #f5faf7;
+    padding: 12px;
+    margin: 10px 0;
+}
+
+.small {
+    font-size: 13px;
+    color: #667085;
+}
+
+footer {
+    background: #064b38;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 30px;
+}
+
+#loginBox {
+    max-width: 480px;
+    margin: 30px auto;
+}
+
+@media(max-width:600px) {
+    main {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    nav button {
+        padding: 9px;
+        font-size: 12px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
     <h1>University of Buner</h1>
-    <h2 style="color:white;">Welcome to Zakria Khan's Website</h2>
-    <p>Educational Website | Computer Science | Cyber Security | Artificial Intelligence</p>
+    <p>Student Management Portal</p>
+    <p>Developed by Zakria Khan</p>
 </header>
 
+<div id="loginBox" class="card">
+    <h2>Portal Login</h2>
+    <p class="small">
+        Demo mode only. This login is not secure and does not authenticate
+        real university users.
+    </p>
+
+    <label>Username</label>
+    <input id="username" placeholder="Enter username">
+
+    <label>Password</label>
+    <input id="password" type="password"
+           placeholder="Enter password">
+
+    <button class="action" onclick="login()">Open Demo Portal</button>
+
+    <p id="loginMessage"></p>
+
+    <button class="action secondary" onclick="demoLogin()">
+        Try Demo
+    </button>
+</div>
+
+<div id="portal" style="display:none">
+
 <nav>
-    <a href="#home">Home</a>
-    <a href="#courses">Courses</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <button onclick="showPage('dashboard')">Dashboard</button>
+    <button onclick="showPage('students')">Students</button>
+    <button onclick="showPage('attendance')">Attendance</button>
+    <button onclick="showPage('subjects')">Subjects</button>
+    <button onclick="showPage('assignments')">Assignments</button>
+    <button onclick="showPage('notices')">Notices</button>
+    <button onclick="showPage('teachers')">Teachers</button>
+    <button onclick="showPage('timetable')">Timetable</button>
+    <button onclick="logout()">Logout</button>
 </nav>
 
 <main>
 
-    <section id="home">
-        <h2>Welcome</h2>
-        <p>Welcome to my educational website.</p>
-        <p>My name is <strong>Zakria Khan</strong>.</p>
-        <p>This website provides educational information and learning resources for university students.</p>
-    </section>
+<!-- DASHBOARD -->
 
-    <section id="courses">
-        <h2>Our Courses</h2>
-        <ul>
-            <li>Programming Fundamentals</li>
-            <li>Computer Science</li>
-            <li>Cyber Security</li>
-            <li>Artificial Intelligence</li>
-            <li>Information Technology</li>
-            <li>Python Programming</li>
-        </ul>
-    </section>
+<section id="dashboard" class="page active">
 
-    <section id="about">
-        <h2>About Zakria Khan</h2>
-        <p>My name is Zakria Khan. I created this educational website to share learning resources and information about computer science and technology.</p>
-    </section>
+    <div class="card">
+        <h2>University Dashboard</h2>
+        <p>Welcome to the University of Buner Student Portal.</p>
+        <p id="today"></p>
+    </div>
 
-    <section id="contact">
-        <h2>Website Information</h2>
-        <p>Website Owner: Zakria Khan</p>
-        <p>Website: University of Buner Educational Website</p>
-        <a class="button" href="https://zakria-khan95.github.io/University-of-Buner-/">
-            Visit Website
-        </a>
-    </section>
+    <div class="cards">
+        <div class="stat">
+            <h3>Total Students</h3>
+            <p id="studentCount">0</p>
+        </div>
+
+        <div class="stat">
+            <h3>Total Subjects</h3>
+            <p id="subjectCount">0</p>
+        </div>
+
+        <div class="stat">
+            <h3>Assignments</h3>
+            <p id="assignmentCount">0</p>
+        </div>
+
+        <div class="stat">
+            <h3>Notices</h3>
+            <p id="noticeCount">0</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Important Information</h2>
+        <p>This is an independent educational portal prototype.</p>
+        <p>It is not an official University of Buner management system.</p>
+        <p>Do not enter real student personal information or passwords.</p>
+    </div>
+
+</section>
+
+<!-- STUDENTS -->
+
+<section id="students" class="page">
+
+    <div class="card">
+        <h2>Student Registration</h2>
+
+        <label>Student Name</label>
+        <input id="studentName" placeholder="Student full name">
+
+        <label>Roll Number</label>
+        <input id="rollNumber" placeholder="e.g. BSCS-001">
+
+        <label>Department</label>
+        <select id="department">
+            <option>Computer Science</option>
+            <option>Cyber Security</option>
+            <option>Artificial Intelligence</option>
+            <option>Information Technology</option>
+            <option>Data Science</option>
+        </select>
+
+        <label>Semester</label>
+        <select id="studentSemester">
+            <option>1st Semester</option>
+            <option>2nd Semester</option>
+            <option>3rd Semester</option>
+            <option>4th Semester</option>
+            <option>5th Semester</option>
+            <option>6th Semester</option>
+            <option>7th Semester</option>
+            <option>8th Semester</option>
+        </select>
+
+        <button class="action" onclick="addStudent()">
+            Register Student
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>Student Records</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No.</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<!-- ATTENDANCE -->
+
+<section id="attendance" class="page">
+
+    <div class="card">
+        <h2>Daily Attendance</h2>
+
+        <label>Date</label>
+        <input type="date" id="attendanceDate">
+
+        <label>Subject</label>
+        <input id="attendanceSubject"
+               placeholder="e.g. Programming Fundamentals">
+
+        <p class="small">
+            Register a student first. Select Present, Absent or Leave.
+        </p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Roll No.</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTable"></tbody>
+            </table>
+        </div>
+
+        <button class="action" onclick="saveAttendance()">
+            Save Attendance
+        </button>
+
+        <button class="action secondary" onclick="showAttendance()">
+            Refresh List
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>Attendance Report</h2>
+
+        <label>Search by Roll Number</label>
+        <input id="reportRoll" placeholder="Enter roll number">
+
+        <button class="action" onclick="attendanceReport()">
+            View Report
+        </button>
+
+        <div id="reportResult"></div>
+    </div>
+
+</section>
+
+<!-- SUBJECTS -->
+
+<section id="subjects" class="page">
+
+    <div class="card">
+        <h2>Subjects</h2>
+
+        <label>Subject Name</label>
+        <input id="subjectName"
+               placeholder="e.g. Programming Fundamentals">
+
+        <label>Department</label>
+        <select id="subjectDepartment">
+            <option>Computer Science</option>
+            <option>Cyber Security</option>
+            <option>Artificial Intelligence</option>
+            <option>Information Technology</option>
+            <option>Data Science</option>
+        </select>
+
+        <label>Semester</label>
+        <select id="subjectSemester">
+            <option>1st Semester</option>
+            <option>2nd Semester</option>
+            <option>3rd Semester</option>
+            <option>4th Semester</option>
+            <option>5th Semester</option>
+            <option>6th Semester</option>
+            <option>7th Semester</option>
+            <option>8th Semester</option>
+        </select>
+
+        <button class="action" onclick="addSubject()">
+            Add Subject
+        </button>
+
+        <ul id="subjectList"></ul>
+    </div>
+
+</section>
+
+<!-- ASSIGNMENTS -->
+
+<section id="assignments" class="page">
+
+    <div class="card">
+        <h2>Assignments</h2>
+
+        <label>Assignment Title</label>
+        <input id="assignmentTitle" placeholder="Assignment title">
+
+        <label>Subject</label>
+        <input id="assignmentSubject" placeholder="Subject name">
+
+        <label>Due Date</label>
+        <input id="assignmentDue" type="date">
+
+        <button class="action" onclick="addAssignment()">
+            Add Assignment
+        </button>
+
+        <div id="assignmentList"></div>
+    </div>
+
+</section>
+
+<!-- NOTICES -->
+
+<section id="notices" class="page">
+
+    <div class="card">
+        <h2>Notice Board</h2>
+
+        <label>Notice Title</label>
+        <input id="noticeTitle" placeholder="Notice title">
+
+        <label>Notice Details</label>
+        <textarea id="noticeText"
+                  rows="4"
+                  placeholder="Write notice details"></textarea>
+
+        <button class="action" onclick="addNotice()">
+            Publish Demo Notice
+        </button>
+
+        <div id="noticeList"></div>
+    </div>
+
+</section>
+
+<!-- TEACHERS -->
+
+<section id="teachers" class="page">
+
+    <div class="card">
+        <h2>Teacher Records</h2>
+
+        <label>Teacher Name</label>
+        <input id="teacherName" placeholder="Teacher name">
+
+        <label>Department</label>
+        <input id="teacherDepartment" placeholder="Department">
+
+        <label>Subject</label>
+        <input id="teacherSubject" placeholder="Subject taught">
+
+        <button class="action" onclick="addTeacher()">
+            Add Teacher
+        </button>
+
+        <ul id="teacherList"></ul>
+    </div>
+
+</section>
+
+<!-- TIMETABLE -->
+
+<section id="timetable" class="page">
+
+    <div class="card">
+        <h2>Class Timetable</h2>
+
+        <label>Day</label>
+        <select id="classDay">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+        </select>
+
+        <label>Subject</label>
+        <input id="classSubject" placeholder="Subject">
+
+        <label>Class Time</label>
+        <input id="classTime" placeholder="e.g. 09:00 AM">
+
+        <label>Room</label>
+        <input id="classRoom" placeholder="Room number">
+
+        <button class="action" onclick="addClass()">
+            Add Class
+        </button>
+
+        <div id="timetableList"></div>
+    </div>
+
+</section>
 
 </main>
+</div>
 
 <footer>
-    <p>© 2026 Zakria Khan | Educational Website</p>
+    <p>University of Buner Student Portal</p>
+    <p>Educational prototype by Zakria Khan</p>
 </footer>
 
-</body>
-</html>
+<script>
+const keys = [
+    "zub_students",
+    "zub_subjects",
+    "zub_assignments",
+    "zub_notices",
+    "zub_teachers",
+    "zub_timetable",
+    "zub_attendance"
+];
+
+function getData(key) {
+    try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch {
+        return [];
+    }
+}
+
+function saveData(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, function(c) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[c];
+    });
+}
+
+function login() {
+    document.getElementById("loginMessage").textContent =
+        "Demo access only. Secure university login is not configured.";
+
+    // Prototype only: this is not real authentication.
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("portal").style.display = "block";
+    renderAll();
+}
+
+function demoLogin() {
+    login();
+}
+
+function logout() {
+    document.getElementById("portal").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+}
+
+function showPage(id) {
+    document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+    renderAll();
+}
+
+function addStudent() {
+    const name = document.getElementById("studentName").value.trim();
+    const roll = document.getElementById("rollNumber").value.trim();
+
+    if (!name || !roll) {
+        alert("Enter student name and roll number.");
+        return;
+    }
+
+    const students = getData("zub_students");
+
+    if (students.some(s => s.roll.toLowerCase() === roll.toLowerCase())) {
+        alert("This roll number already exists.");
+        return;
+    }
+
+    students.push({
+        name,
+        roll,
+        department: document.getElementById("department").value,
+        semester: document.getElementById("studentSemester").value
+    });
+
+    saveData("zub_students", students);
+
+    document.getElementById("studentName").value = "";
+    document.getElementById("rollNumber").value = "";
+
+    renderAll();
+    alert("Student added to this browser's demo records.");
+}
+
+function deleteStudent(roll) {
+    if (!confirm("Delete this demo student?")) return;
+
+    saveData("zub_students",
+        getData("zub_students").filter(s => s.roll !== roll));
+
+    renderAll();
+}
+
+function renderStudents() {
+    const students = getData("zub_students");
+
+    document.getElementById("studentTable").innerHTML =
+        students.map(s => `
+            <tr>
+                <td>${escapeHTML(s.name)}</td>
+                <td>${escapeHTML(s.roll)}</td>
+                <td>${escapeHTML(s.department)}</td>
+                <td>${escapeHTML(s.semester)}</td>
+                <td>
+                    <button class="action danger"
+                    onclick="deleteStudent('${escapeHTML(s.roll)}')">
+                    Delete</button>
+                </td>
+            </tr>
+        `).join("");
+}
+
+function showAttendance() {
+    const students = getData("zub_students");
+    const date = document.getElementById("attendanceDate").value;
+
+    const existing = getData("zub_attendance");
+    const current = existing.filter(a => a.date === date);
+
+    document.getElementById("attendanceTable").innerHTML =
+        students.map(s => {
+            const old = current.find(a =>
+                a.roll === s.roll &&
+                a.subject === document.getElementById("attendanceSubject").value
+            );
+
+            return `
+                <tr>
+                    <td>${escapeHTML(s.name)}</td>
+                    <td>${escapeHTML(s.roll)}</td>
+                    <td>
+                        <select class="attendance-status"
+                            data-roll="${escapeHTML(s.roll)}">
+                            <option ${old?.status === "Present" ? "selected" : ""}>Present</option>
+                            <option ${old?.status === "Absent" ? "selected" : ""}>Absent</option>
+                            <option ${old?.status === "Leave" ? "selected" : ""}>Leave</option>
+                        </select>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+}
+
+function saveAttendance() {
+    const date = document.getElementById("attendanceDate").value;
+    const subject = document.getElementById("attendanceSubject").value.trim();
+
+    if (!date || !subject) {
+        alert("Select date and enter subject.");
+        return;
+    }
+
+    const attendance = getData("zub_attendance");
+    const rows = document.querySelectorAll(".attendance-status");
+
+    if (!rows.length) {
+        alert("No students found. Register students first.");
+        return;
+    }
+
+    rows.forEach(row => {
+        const record = {
+            date,
+            subject,
+            roll: row.dataset.roll,
+            status: row.value
+        };
+
+        const index = attendance.findIndex(a =>
+            a.date === date &&
+            a.subject === subject &&
+            a.roll === record.roll
+        );
+
+        if (index >= 0) {
+            attendance[index] = record;
+        } else {
+            attendance.push(record);
+        }
+    });
+
+    saveData("zub_attendance", attendance);
+    alert("Attendance saved in this browser.");
+}
+
+function attendanceReport() {
+    const roll = document.getElementById("reportRoll").value.trim();
+
+    if (!roll) {
+        alert("Enter a roll number.");
+        return;
+    }
+
+    const records = getData("zub_attendance").filter(a => a.roll === roll);
+    const present = records.filter(a => a.status === "Present").length;
+    const absent = records.filter(a => a.status === "Absent").length;
+    const leave = records.filter(a => a.status === "Leave").length;
+    const counted = present + absent;
+    const percentage = counted ? (present / counted * 100).toFixed(1) : "0.0";
+
+    document.getElementById("reportResult").innerHTML = `
+        <h3>Attendance for ${escapeHTML(roll)}</h3>
+        <p>Present: ${present}</p>
+        <p>Absent: ${absent}</p>
+        <p>Leave: ${leave}</p>
+        <p>Attendance Percentage (excluding leave): ${percentage}%</p>
+        <p class="small">Report covers records saved in this browser only.</p>
+    `;
+}
+
+function addSubject() {
+    const name = document.getElementById("subjectName").value.trim();
+
+    if (!name) {
+        alert("Enter a subject name.");
+        return;
+    }
+
+    const subjects = getData("zub_subjects");
+
+    subjects.push({
+        name,
+        department: document.getElementById("subjectDepartment").value,
+        semester: document.getElementById("subjectSemester").value
+    });
+
+    saveData("zub_subjects", subjects);
+    document.getElementById("subjectName").value = "";
+    renderAll();
+}
+
+function addAssignment() {
+    const title = document.getElementById("assignmentTitle").value.trim();
+    const subject = document.getElementById("assignmentSubject").value.trim();
+    const due = document.getElementById("assignmentDue").value;
+
+    if (!title || !subject || !due) {
+        alert("Enter title, subject and due date.");
+        return;
+    }
+
+    const items = getData("zub_assignments");
+    items.push({ title, subject, due });
+    saveData("zub_assignments", items);
+
+    document.getElementById("assignmentTitle").value = "";
+    document.getElementById("assignmentSubject").value = "";
+    document.getElementById("assignmentDue").value = "";
+
+    renderAll();
+}
+
+function addNotice() {
+    const title = document.getElementById("noticeTitle").value.trim();
+    const text = document.getElementById("noticeText").value.trim();
+
+    if (!title || !text) {
+        alert("Enter notice title and details.");
