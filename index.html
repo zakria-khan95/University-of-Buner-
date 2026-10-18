@@ -365,6 +365,155 @@ renderClasses();
 renderAttendance();
 renderNotes();
 </script>
+<!-- Attendance System -->
+<section id="attendance" style="max-width:700px;margin:20px auto;padding:20px;border-radius:12px;background:#f4f7fb;font-family:Arial;">
+  <h2 style="text-align:center;">Student Attendance System</h2>
 
+  <label for="section">Select Section:</label>
+  <select id="section" style="width:100%;padding:10px;margin:8px 0;">
+    <option value="A">Section A</option>
+    <option value="B">Section B</option>
+  </select>
+
+  <label for="studentName">Student Name:</label>
+  <input id="studentName" type="text" placeholder="Enter student name"
+         style="width:100%;padding:10px;margin:8px 0;box-sizing:border-box;">
+
+  <button onclick="addStudent()"
+          style="width:100%;padding:12px;background:#1565c0;color:white;border:0;border-radius:6px;">
+    + Add Student
+  </button>
+
+  <h3>Students Attendance</h3>
+  <p>Date: <span id="today"></span></p>
+
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;background:white;">
+      <thead>
+        <tr>
+          <th style="padding:10px;border:1px solid #ddd;">Student Name</th>
+          <th style="padding:10px;border:1px solid #ddd;">Section</th>
+          <th style="padding:10px;border:1px solid #ddd;">Attendance</th>
+          <th style="padding:10px;border:1px solid #ddd;">Delete</th>
+        </tr>
+      </thead>
+      <tbody id="studentList"></tbody>
+    </table>
+  </div>
+
+  <p id="summary"></p>
+  <button onclick="saveAttendance()"
+          style="padding:12px;background:#16803c;color:white;border:0;border-radius:6px;">
+    Save Attendance
+  </button>
+</section>
+
+<script>
+const today = new Date().toISOString().split("T")[0];
+document.getElementById("today").textContent = today;
+
+let students = JSON.parse(localStorage.getItem("bunerStudents") || "[]");
+let attendance = JSON.parse(localStorage.getItem("bunerAttendance") || "{}");
+
+function addStudent() {
+  const name = document.getElementById("studentName").value.trim();
+  const section = document.getElementById("section").value;
+
+  if (!name) {
+    alert("Please enter student name.");
+    return;
+  }
+
+  students.push({
+    id: Date.now() + Math.random(),
+    name: name,
+    section: section
+  });
+
+  localStorage.setItem("bunerStudents", JSON.stringify(students));
+  document.getElementById("studentName").value = "";
+  displayStudents();
+}
+
+function displayStudents() {
+  const list = document.getElementById("studentList");
+  list.innerHTML = "";
+
+  students.forEach(student => {
+    const key = today + "_" + student.id;
+    const status = attendance[key] || "Not Marked";
+
+    const row = document.createElement("tr");
+
+    [student.name, "Section " + student.section].forEach(value => {
+      const cell = document.createElement("td");
+      cell.style.cssText = "padding:10px;border:1px solid #ddd;";
+      cell.textContent = value;
+      row.appendChild(cell);
+    });
+
+    const statusCell = document.createElement("td");
+    statusCell.style.cssText = "padding:8px;border:1px solid #ddd;";
+
+    const select = document.createElement("select");
+    ["Not Marked", "Present", "Absent", "Leave"].forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+
+    select.value = status;
+    select.addEventListener("change", () => {
+      attendance[key] = select.value;
+      updateSummary();
+    });
+    statusCell.appendChild(select);
+    row.appendChild(statusCell);
+
+    const deleteCell = document.createElement("td");
+    deleteCell.style.cssText = "padding:8px;border:1px solid #ddd;";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = () => {
+      if (confirm("Delete " + student.name + "?")) {
+        students = students.filter(s => s.id !== student.id);
+        localStorage.setItem("bunerStudents", JSON.stringify(students));
+        displayStudents();
+      }
+    };
+
+    deleteCell.appendChild(deleteButton);
+    row.appendChild(deleteCell);
+    list.appendChild(row);
+  });
+
+  updateSummary();
+}
+
+function saveAttendance() {
+  localStorage.setItem("bunerStudents", JSON.stringify(students));
+  localStorage.setItem("bunerAttendance", JSON.stringify(attendance));
+  alert("Attendance saved successfully!");
+}
+
+function updateSummary() {
+  const present = students.filter(s =>
+    attendance[today + "_" + s.id] === "Present").length;
+  const absent = students.filter(s =>
+    attendance[today + "_" + s.id] === "Absent").length;
+  const leave = students.filter(s =>
+    attendance[today + "_" + s.id] === "Leave").length;
+
+  document.getElementById("summary").textContent =
+    "Total Students: " + students.length +
+    " | Present: " + present +
+    " | Absent: " + absent +
+    " | Leave: " + leave;
+}
+
+displayStudents();
+</script>
 </body>
 </html>
