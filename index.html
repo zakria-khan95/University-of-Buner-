@@ -3,195 +3,234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zakria Khan | University Student Portal</title>
-<meta name="description" content="Zakria Khan's educational student portal with attendance, subjects, assignments and timetable.">
+<title>Zakria Khan | Student Portal</title>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
-header{background:#075e45;color:white;text-align:center;padding:24px 10px}
-nav{background:#064b38;padding:10px;display:flex;flex-wrap:wrap;justify-content:center;gap:7px}
-button{cursor:pointer;border:0;border-radius:5px;padding:11px;background:#087653;color:white}
-nav button{background:white;color:#075e45;font-weight:bold}
-main{max-width:1000px;margin:auto;padding:15px}
-.page{display:none}
-.page.active{display:block}
-.card{background:white;border-radius:9px;padding:18px;margin:15px 0;box-shadow:0 2px 7px #0001}
-input,select,textarea{width:100%;padding:11px;margin:7px 0 13px;border:1px solid #ccd3dc;border-radius:5px}
-table{border-collapse:collapse;width:100%;background:white}
+body{margin:0;font-family:Arial,sans-serif;background:#f0f4f8;color:#222}
+header{background:#064e3b;color:white;padding:20px;text-align:center}
+header h1{margin:0 0 8px}
+header p{margin:0}
+.container{max-width:1100px;margin:20px auto;padding:15px}
+.card{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0001;margin-bottom:18px}
+input,select,textarea,button{padding:11px;margin:5px 0;border:1px solid #ccc;border-radius:6px;font-size:15px}
+input,select,textarea{width:100%}
+button{background:#047857;color:white;border:0;cursor:pointer}
+button:hover{background:#065f46}
+.nav{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:15px}
+.nav button{flex:1;min-width:110px}
+.danger{background:#b91c1c}
+.secondary{background:#475569}
+.hidden{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.stat{background:#ecfdf5;padding:18px;border-radius:10px;border-left:5px solid #059669}
+.stat h2{margin:8px 0;color:#047857}
+table{width:100%;border-collapse:collapse;background:white}
 th,td{padding:10px;border:1px solid #ddd;text-align:left}
-th{background:#e4f3eb}
-.table-wrap{overflow-x:auto}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-.stat{background:white;padding:18px;border-left:4px solid #087653;border-radius:7px}
-.stat strong{font-size:25px;display:block;margin-top:10px}
-.notice{padding:12px;background:#eef8f2;margin:10px 0;border-left:4px solid #087653}
-footer{text-align:center;background:#064b38;color:white;padding:18px;margin-top:25px}
+th{background:#065f46;color:white}
+.tablewrap{overflow-x:auto}
+h2{color:#065f46}
 .small{font-size:13px;color:#555}
+footer{text-align:center;padding:20px;color:#555}
+#loginBox{max-width:420px;margin:45px auto}
+.badge{display:inline-block;padding:5px 9px;background:#d1fae5;border-radius:5px}
+@media(max-width:600px){.container{padding:8px}.card{padding:13px}header h1{font-size:23px}}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>University of Buner</h1>
-<h2>Student Management Portal</h2>
-<p>Developed by Zakria Khan</p>
+<h1>Zakria Khan Student Portal</h1>
+<p>University of Buner | Learning Management System</p>
 </header>
 
-<nav>
-<button onclick="page('dashboard')">Dashboard</button>
-<button onclick="page('students')">Students</button>
-<button onclick="page('attendance')">Attendance</button>
-<button onclick="page('subjects')">Subjects</button>
-<button onclick="page('assignments')">Assignments</button>
-<button onclick="page('notices')">Notice Board</button>
-<button onclick="page('teachers')">Teachers</button>
-<button onclick="page('timetable')">Timetable</button>
-</nav>
+<div class="container">
 
-<main>
+<!-- LOGIN -->
+<div id="loginBox" class="card">
+<h2>🔐 Login System</h2>
+<p>Sign in to access your portal.</p>
 
-<section id="dashboard" class="page active">
-<div class="card">
-<h2>Welcome to Student Portal</h2>
-<p>Manage student records, attendance, subjects and class information.</p>
-<p id="today"></p>
+<label>Username</label>
+<input id="username" placeholder="Enter username">
+
+<label>Password</label>
+<input id="password" type="password" placeholder="Enter password">
+
+<button onclick="login()" style="width:100%">Login</button>
+<p id="loginError" style="color:red"></p>
+
+<hr>
+<h3>Demo Accounts</h3>
+<p><b>Admin username:</b> admin</p>
+<p><b>Admin password:</b> admin123</p>
+<p><b>Student username:</b> student</p>
+<p><b>Student password:</b> student123</p>
+<p class="small">Demo accounts only. Do not use real passwords or private student information.</p>
 </div>
 
-<div class="stats">
-<div class="stat">Total Students<strong id="sc">0</strong></div>
-<div class="stat">Subjects<strong id="subc">0</strong></div>
-<div class="stat">Assignments<strong id="ac">0</strong></div>
-<div class="stat">Notices<strong id="nc">0</strong></div>
-</div>
-
-<div class="card">
-<h3>Important Information</h3>
-<p>This is an independent educational prototype, not an official university system.</p>
-<p class="small">Demo data is stored in this browser only. Do not enter real student personal information.</p>
-</div>
-</section>
-
-<section id="students" class="page">
-<div class="card">
-<h2>Student Registration</h2>
-<label>Student Name</label>
-<input id="sname" placeholder="Full name">
-<label>Roll Number</label>
-<input id="roll" placeholder="e.g. CS-001">
-<label>Department</label>
-<select id="dept">
-<option>Computer Science</option>
-<option>Cyber Security</option>
-<option>Artificial Intelligence</option>
-<option>Information Technology</option>
-<option>Data Science</option>
-</select>
-<label>Semester</label>
-<select id="sem">
-<option>1st Semester</option><option>2nd Semester</option>
-<option>3rd Semester</option><option>4th Semester</option>
-<option>5th Semester</option><option>6th Semester</option>
-<option>7th Semester</option><option>8th Semester</option>
-</select>
-<button onclick="addStudent()">Register Student</button>
-</div>
+<!-- APP -->
+<div id="app" class="hidden">
 
 <div class="card">
-<h2>Student Records</h2>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Name</th><th>Roll</th><th>Department</th><th>Semester</th><th>Action</th></tr></thead>
-<tbody id="studentRows"></tbody>
-</table>
-</div>
-</div>
-</section>
-
-<section id="attendance" class="page">
-<div class="card">
-<h2>Daily Attendance</h2>
-<label>Date</label>
-<input type="date" id="adate">
-<label>Subject</label>
-<input id="asubject" placeholder="Subject name">
-<button onclick="loadAttendance()">Load Students</button>
-
-<div class="table-wrap">
-<table>
-<thead><tr><th>Student</th><th>Roll Number</th><th>Status</th></tr></thead>
-<tbody id="attendanceRows"></tbody>
-</table>
+Welcome, <b id="welcomeName"></b>
+<span class="badge" id="roleBadge"></span>
+<button onclick="logout()" class="danger" style="float:right">Logout</button>
+<div style="clear:both"></div>
 </div>
 
-<button onclick="saveAttendance()">Save Attendance</button>
+<div class="nav">
+<button onclick="showPage('dashboard')">Dashboard</button>
+<button onclick="showPage('students')">Students</button>
+<button onclick="showPage('attendance')">Attendance</button>
+<button onclick="showPage('subjects')">Subjects</button>
+<button onclick="showPage('assignments')">Assignments</button>
+<button onclick="showPage('notices')">Notice Board</button>
+<button onclick="showPage('teachers')">Teachers</button>
+<button onclick="showPage('timetable')">Timetable</button>
+<button onclick="showPage('results')">Results</button>
 </div>
 
-<div class="card">
-<h2>Attendance Report</h2>
-<label>Student Roll Number</label>
-<input id="reportRoll" placeholder="Enter roll number">
-<button onclick="report()">View Report</button>
-<div id="reportResult"></div>
-</div>
-</section>
+<div id="content"></div>
 
-<section id="subjects" class="page">
-<div class="card">
-<h2>Subjects</h2>
-<input id="subjectName" placeholder="Subject name">
-<button onclick="addSubject()">Add Subject</button>
-<ul id="subjectRows"></ul>
 </div>
-</section>
-
-<section id="assignments" class="page">
-<div class="card">
-<h2>Assignments</h2>
-<label>Assignment Title</label>
-<input id="atitle" placeholder="Assignment title">
-<label>Subject</label>
-<input id="asub" placeholder="Subject">
-<label>Due Date</label>
-<input id="due" type="date">
-<button onclick="addAssignment()">Add Assignment</button>
-<div id="assignmentRows"></div>
 </div>
-</section>
 
-<section id="notices" class="page">
-<div class="card">
-<h2>Notice Board</h2>
-<input id="ntitle" placeholder="Notice title">
-<textarea id="ntext" placeholder="Notice details"></textarea>
-<button onclick="addNotice()">Publish Notice</button>
-<div id="noticeRows"></div>
-</div>
-</section>
+<footer>
+<p>Zakria Khan Student Portal | Educational Demo Project</p>
+<p class="small">This is an unofficial demo, not the official University of Buner system.</p>
+</footer>
 
-<section id="teachers" class="page">
-<div class="card">
-<h2>Teacher Records</h2>
-<input id="tname" placeholder="Teacher name">
-<input id="tdept" placeholder="Department">
-<input id="tsub" placeholder="Subject">
-<button onclick="addTeacher()">Add Teacher</button>
-<ul id="teacherRows"></ul>
-</div>
-</section>
+<script>
+const KEY = "zakria_student_portal_v1";
 
-<section id="timetable" class="page">
-<div class="card">
-<h2>Class Timetable</h2>
-<label>Day</label>
-<select id="day">
-<option>Monday</option><option>Tuesday</option>
-<option>Wednesday</option><option>Thursday</option>
-<option>Friday</option><option>Saturday</option>
-</select>
-<input id="classSubject" placeholder="Subject">
-<input id="ctime" placeholder="Class time">
-<input id="room" placeholder="Room number">
-<button onclick="addClass()">Add Class</button>
-<div id="class
+let db = JSON.parse(localStorage.getItem(KEY) || "null") || {
+students:[
+ {name:"Demo Student",roll:"CS-001",className:"BS Computer Science"}
+],
+attendance:[],
+subjects:[
+ {name:"Programming Fundamentals",teacher:"Course Teacher"},
+ {name:"Computer Science",teacher:"Course Teacher"},
+ {name:"English",teacher:"Course Teacher"}
+],
+assignments:[],
+notices:[
+ {title:"Welcome",detail:"Welcome to the Student Portal."}
+],
+teachers:[
+ {name:"Demo Teacher",subject:"Programming Fundamentals"}
+],
+timetable:[],
+results:[]
+};
+
+let currentUser = null;
+let page = "dashboard";
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+function esc(value){
+ return String(value ?? "").replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+ });
+}
+
+function login(){
+ const u=document.getElementById("username").value.trim();
+ const p=document.getElementById("password").value;
+
+ if(u==="admin" && p==="admin123"){
+  currentUser={name:"Administrator",role:"admin"};
+ }else if(u==="student" && p==="student123"){
+  currentUser={name:"Demo Student",role:"student",roll:"CS-001"};
+ }else{
+  document.getElementById("loginError").textContent="Incorrect username or password.";
+  return;
+ }
+
+ document.getElementById("loginError").textContent="";
+ document.getElementById("loginBox").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+ document.getElementById("welcomeName").textContent=currentUser.name;
+ document.getElementById("roleBadge").textContent=currentUser.role.toUpperCase();
+ showPage("dashboard");
+}
+
+function logout(){
+ currentUser=null;
+ document.getElementById("app").classList.add("hidden");
+ document.getElementById("loginBox").classList.remove("hidden");
+ document.getElementById("password").value="";
+}
+
+function adminOnly(){
+ return currentUser && currentUser.role==="admin";
+}
+
+function showPage(p){
+ page=p;
+ const c=document.getElementById("content");
+ const admin=adminOnly();
+
+ if(p==="dashboard"){
+ c.innerHTML=`
+ <div class="card"><h2>📊 Dashboard</h2>
+ <div class="grid">
+ <div class="stat"><b>Total Students</b><h2>${db.students.length}</h2></div>
+ <div class="stat"><b>Subjects</b><h2>${db.subjects.length}</h2></div>
+ <div class="stat"><b>Assignments</b><h2>${db.assignments.length}</h2></div>
+ <div class="stat"><b>Notices</b><h2>${db.notices.length}</h2></div>
+ <div class="stat"><b>Attendance Records</b><h2>${db.attendance.length}</h2></div>
+ <div class="stat"><b>Teachers</b><h2>${db.teachers.length}</h2></div>
+ </div></div>
+ <div class="card"><h2>Welcome!</h2>
+ <p>This portal contains student records, attendance, subjects, assignments, notices, teachers, timetable and results.</p>
+ <p>Your current role: <b>${esc(currentUser.role)}</b></p></div>`;
+ }
+
+ else if(p==="students"){
+ c.innerHTML=`<div class="card"><h2>👨‍🎓 Students</h2>
+ ${admin?`<h3>Add Student</h3>
+ <input id="sname" placeholder="Student full name">
+ <input id="sroll" placeholder="Roll number">
+ <input id="sclass" placeholder="Class / Department">
+ <button onclick="addStudent()">Add Student</button>`:""}
+ <div class="tablewrap"><table><thead><tr><th>Name</th><th>Roll Number</th><th>Class</th>${admin?"<th>Action</th>":""}</tr></thead>
+ <tbody>${db.students.map((s,i)=>`<tr><td>${esc(s.name)}</td><td>${esc(s.roll)}</td><td>${esc(s.className)}</td>${admin?`<td><button class="danger" onclick="delItem('students',${i})">Delete</button></td>`:""}</tr>`).join("")}</tbody></table></div></div>`;
+ }
+
+ else if(p==="attendance"){
+ c.innerHTML=`<div class="card"><h2>📅 Attendance System</h2>
+ ${admin?`<h3>Mark Attendance</h3>
+ <label>Student</label><select id="aroll">${db.students.map(s=>`<option value="${esc(s.roll)}">${esc(s.name)} (${esc(s.roll)})</option>`).join("")}</select>
+ <label>Date</label><input type="date" id="adate" value="${new Date().toISOString().slice(0,10)}">
+ <label>Status</label><select id="astatus"><option>Present</option><option>Absent</option><option>Late</option></select>
+ <button onclick="addAttendance()">Save Attendance</button>`:""}
+ <div class="tablewrap"><table><thead><tr><th>Student</th><th>Roll</th><th>Date</th><th>Status</th></tr></thead><tbody>
+ ${db.attendance.filter(a=>admin||a.roll===currentUser.roll).map(a=>`<tr><td>${esc(a.name)}</td><td>${esc(a.roll)}</td><td>${esc(a.date)}</td><td>${esc(a.status)}</td></tr>`).join("")}
+ </tbody></table></div>
+ <p class="small">Attendance saved in this browser only.</p></div>`;
+ }
+
+ else if(p==="subjects"){
+ c.innerHTML=`<div class="card"><h2>📚 Subjects</h2>
+ ${admin?`<input id="subname" placeholder="Subject name">
+ <input id="subteacher" placeholder="Teacher name">
+ <button onclick="addSubject()">Add Subject</button>`:""}
+ <div class="tablewrap"><table><thead><tr><th>Subject</th><th>Teacher</th>${admin?"<th>Action</th>":""}</tr></thead><tbody>
+ ${db.subjects.map((s,i)=>`<tr><td>${esc(s.name)}</td><td>${esc(s.teacher)}</td>${admin?`<td><button class="danger" onclick="delItem('subjects',${i})">Delete</button></td>`:""}</tr>`).join("")}
+ </tbody></table></div></div>`;
+ }
+
+ else if(p==="assignments"){
+ c.innerHTML=`<div class="card"><h2>📝 Assignments</h2>
+ ${admin?`<input id="aname" placeholder="Assignment title">
+ <input id="asubject" placeholder="Subject">
+ <label>Due Date</label><input type="date" id="adue">
+ <textarea id="adesc" placeholder="Assignment details"></textarea>
+ <button onclick="addAssignment()">Publish Assignment</button>`:""}
+ ${db.assignments.map((a,i)=>`<div class="card"><h3>${esc(a.title)}</h3><p><b>Subject:</b> ${esc(a.subject)}</p><p><b>Due:</b> ${esc(a.due)}</p><p>${esc(a.desc)}</p>${admin?`<button class="danger" onclick="delItem('assignments',${i})">Delete</button>`:""
